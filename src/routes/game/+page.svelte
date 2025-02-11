@@ -35,12 +35,10 @@
 
 {:else if gameState == "answering"}
     <h1>{players[currentPlayer].name}, svar ærlig:</h1>
-    <p>{questionsDatabase[0]}</p>
-    <input type="text" placeholder="Ditt svar" bind:value={players[currentPlayer].answers[0]}>
-    <p>{questionsDatabase[1]}</p>
-    <input type="text" placeholder="Ditt svar" bind:value={players[currentPlayer].answers[1]}>
-    <p>{questionsDatabase[2]}</p>
-    <input type="text" placeholder="Ditt svar" bind:value={players[currentPlayer].answers[2]}>
+    {#each questionsDatabase as question, index}
+        <p>{question}</p>
+        <input type="text" placeholder="Ditt svar" bind:value={players[currentPlayer].answers[index]}>
+    {/each}
     
     {#if currentPlayer == players.length - 1}
         <button on:click={() => startGuessing()}>OK, til gjetting!!</button>
