@@ -24,19 +24,19 @@
         });
 
         newAnswers = [];
-        console.log(answers)
+        console.log("svar: ", answers);
     };
 
     // sjekke gjetting
     let newGuesses = [];
     function checkGuesses() {
-        console.log(newGuesses);
-        newGuesses.forEach(guess => {
+        console.log("guesses: ", newGuesses);
+        newGuesses.forEach((guess, index) => {
             if (guess.guessedID == guess.trueID) {
                 players[currentPlayer].score++;
-                console.log("hurra! " + players[currentPlayer].name + " har " + players[currentPlayer].score);
+                console.log(index + ": poeng! " + players[currentPlayer].name + " har " + players[currentPlayer].score);
             } else {
-                console.log("feil!");
+                console.log("feil!" + players[currentPlayer].name + " har " + players[currentPlayer].score);
             }
         });
         newGuesses = []
@@ -44,12 +44,12 @@
 
 </script>
 
-{#key currentPlayer}
+{#key currentPlayer} <!-- for å resette tekstbokser hver gang ny currentplayer -->
 
 <!-- OPPSETT -->
 
 {#if gameState == "setup"}
-    <h1>hvem spiller?</h1>
+    <h1>hvem spiller? 🤼‍♂️</h1>
     <input type="text" placeholder="spiller1" bind:value={$playersStore[0].name}>
     <input type="text" placeholder="spiller2" bind:value={$playersStore[1].name}>
     <input type="text" placeholder="spiller3" bind:value={$playersStore[2].name}>
@@ -59,7 +59,7 @@
 <!-- SVARE PÅ SPØRSMÅL -->
 
 {:else if gameState == "answering"}
-    <h1>{players[currentPlayer].name}, svar ærlig:</h1>
+    <h1>{players[currentPlayer].name}, svar ærlig: ✍️</h1>
     {#each questionsDatabase as question, index}
         <p>{question}</p>
         <input type="text" placeholder="Ditt svar" value=""
@@ -91,13 +91,15 @@
 <!-- GJETTING -->
 
 {:else if gameState == "guessing"}
-    <h1>{players[currentPlayer].name}, gjett hvem som svarte hva:</h1>
+    <h1>{players[currentPlayer].name}, gjett hvem som svarte hva: 🤔</h1>
     
     {#each questionsDatabase as question, index }
         <h2>{question}</h2>
         {#each answers.filter(answer => answer.questionID == index) as answer}
-            <p>«{answer.answer}» (fra {players[answer.playerID].name})</p>
+            <p>«{answer.answer}» </p>
             <!-- dette funker ikke; kan ikke pushe hver gang endrer -->
+             <!-- må finne smart løsning, fordi det under funker ikke -->
+            <!-- <select on:change={(e)=>newGuesses[index] = {guessedID: e.target.value, trueID: answer.playerID}}> -->
             <select on:change={(e)=>newGuesses.push ({guessedID: e.target.value, trueID: answer.playerID})}>
                 <option disabled selected value> velg spiller </option>
                 {#each players as player, index}
@@ -127,10 +129,12 @@
 <!-- SCORING -->
 
 {:else if gameState == "scoring"}
-    <h1>Scoring!</h1>
+    <h1>hurra! 🏆</h1>
     {#each players as player}
         <p>{player.name}: {player.score} poeng!</p>
     {/each}
+
+<!-- ERRORSJ -->
 
 {:else}
     <h1>wat!?</h1>

@@ -2,10 +2,10 @@ import { writable } from 'svelte/store';
 
 // hardkoda 4 spillere foreløpig
 export const playersStore = writable([
-  { name: '', score: 0 },
-  { name: '', score: 0 },
-  { name: '', score: 0 },
-  { name: '', score: 0 }
+  { name: 'perry', score: 0 },
+  { name: 'tobben', score: 0 },
+  { name: 'arild', score: 0 },
+  { name: 'pettern', score: 0 }
 ]);
 
 export const answersStore = writable([
@@ -17,8 +17,8 @@ export const answersStore = writable([
 ]);
 
 export const questionsDatabase = [
-    "Hva er din favorittmat?",
-    "Hva er ditt favorittband?",
-    "Hva er din seksuelle fantasi?",
-    "Hva er din favorittbok?"
+    "Hva er du redd for?",
+    "Hvem vil du helst ligge med av alle i hele verden?",
+    "Finn på et morsomt jentenavn!",
+    "Hva er din seksuelle fantasi?"
 ]

@@ -1,6 +1,0 @@
-* bør jeg skrote stores og bruke $state? 
-
-* for å finne ut om noen har gjetta riktig: 
-    1 hvilket spørsmål gjetta du hvilken spiller?
-    2 sjekke om spørsmålets svar hører til riktig spiller
-    3 gi poeng i så fall 
